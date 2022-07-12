@@ -1,0 +1,20 @@
+{
+  "name": "jokenpo",
+  "version": "1.0.0",
+  "description": "Pedra, papel e tesoura",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "browser-sync start --server --files '*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasoneves/jokenpo.git"
+  },
+  "author": "lucas neves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasoneves/jokenpo/issues"
+  },
+  "homepage": "https://github.com/lucasoneves/jokenpo#readme"
+}
