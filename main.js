@@ -1,19 +1,17 @@
-function computerPlay() {
-  return 'rock';
+const options = ['Pedra', 'Papel', 'Tesoura'];
+
+function randomChoiceComputer() {
+  return 'Papel'
 }
 
-function playRound(playerSelection, computerSelection) {
-  const message = `You Lose. ${computerSelection} beats ${playerSelection}`;
-  console.log(message);
-  return playerSelection.toUpperCase(), computerSelection;
-}
+document.querySelectorAll('.chose-weapon').forEach(el => el.addEventListener('click',function (e) {
+  console.log('eu escolho', e.target.textContent);
+  console.log('escolha do computador', randomChoiceComputer())
+}));
 
-function game() {
-    for (let i = 0; i < 5; i++) {
-        // your code here!
-        playRound(playerSelection, computerSelection);
-     }
-  
+function handleChoosenWeapon(e) {
+  e.preventDefault();
+  console.log('hey')
 }
 
 const playerSelection = "paper";
