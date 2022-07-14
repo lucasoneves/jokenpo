@@ -1,22 +1,26 @@
-const options = ['Pedra', 'Papel', 'Tesoura'];
+const options = [
+  {
+    value: "Pedra",
+    ganha: "Tesoura",
+  },
+  {
+    value: "Papel",
+    ganha: "Pedra",
+  },
+  {
+    value: "Tesoura",
+    ganha: "Papel",
+  },
+];
 
 function randomChoiceComputer() {
-  return 'Papel'
+  const choice = Math.floor(Math.random() * options.length);
+  return options[choice].value;
 }
 
-document.querySelectorAll('.chose-weapon').forEach(el => el.addEventListener('click',function (e) {
-  console.log('eu escolho', e.target.textContent);
-  console.log('escolha do computador', randomChoiceComputer())
-}));
-
-function handleChoosenWeapon(e) {
-  e.preventDefault();
-  console.log('hey')
-}
-
-const playerSelection = "paper";
-const computerSelection = computerPlay();
-
-computerPlay();
-
-game();
+document.querySelectorAll(".chose-weapon").forEach((el) =>
+  el.addEventListener("click", function (e) {
+    console.log("eu escolho", e.target.textContent);
+    console.log("escolha do computador", randomChoiceComputer());
+  })
+);
