@@ -13,6 +13,8 @@ const options = [
   },
 ];
 
+const scoreBoard = document.querySelector('.placar');
+
 const score = {
   player: 0,
   computer: 0,
@@ -20,6 +22,16 @@ const score = {
 
 let userChoice;
 let computerChoice;
+
+let winner;
+
+function mountScoreBoard() {
+  scoreBoard.innerHTML = `
+    <div>Player ${score.player}x${score.computer} Computador</div>
+  `
+}
+
+mountScoreBoard();
 
 function randomChoiceComputer() {
   const choice = Math.floor(Math.random() * options.length);
@@ -42,20 +54,30 @@ function checkPlayWinner() {
   }
 }
 
-document.querySelectorAll(".chose-weapon").forEach((el) =>
+document.querySelectorAll(".chose-weapon").forEach((el) => {
   el.addEventListener("click", function (e) {
     userChoice = e.target.textContent;
     computerChoice = randomChoiceComputer();
     checkPlayWinner();
     verifyScore();
-    console.log(score);
-  })
-);
+    scoreBoard.innerHTML = `
+      <div>
+        <span>Player ${score.player}x${score.computer} Computador</span>
+      </div>
+    `;
+  });
+});
+
+function showWinnerMessage() {
+  document.getElementById('message-winner').innerHTML = `<h2>${winner} é o vencedor!!!</h2><button>Resetar Game</button>`
+}
 
 const verifyScore = () => {
   Object.entries(score).forEach(([key, value]) => {
     if (value === 5) {
-      console.log(`${key} é o vencedor`)
+      console.log(`${key} é o vencedor`);
+      winner = key;
+      showWinnerMessage()
     }
   });
 };
