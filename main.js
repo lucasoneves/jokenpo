@@ -13,22 +13,24 @@ const options = [
   },
 ];
 
-const scoreBoard = document.querySelector('.placar');
+const scoreBoard = document.querySelector(".placar");
 
-const score = {
-  player: 0,
-  computer: 0,
-};
+const score = [
+  { name: "Player", points: 0, id: 1 },
+  { name: "Computador", points: 0, id: 2 },
+];
 
 let userChoice;
 let computerChoice;
 
 let winner;
 
+const contentLogRounds = document.querySelector(".log-messages");
+
 function mountScoreBoard() {
   scoreBoard.innerHTML = `
-    <div>Player ${score.player}x${score.computer} Computador</div>
-  `
+    <div>${score[0].name} ${score[0].points} x ${score[1].points} ${score[1].name}</div>
+  `;
 }
 
 mountScoreBoard();
@@ -44,13 +46,13 @@ function checkPlayWinner() {
   });
 
   if (user.value === computerChoice) {
-    alert("foi um empate!");
+    contentLogRounds.innerHTML += "<h2>Foi um empate</h2>";
   } else if (user.ganha !== computerChoice) {
-    alert("computador ganhou a rodada");
-    score.computer++;
+    contentLogRounds.innerHTML += "<h2>Computador ganhou a rodada</h2>";
+    score[1].points++;
   } else {
-    alert("player 1 ganhou");
-    score.player++;
+    contentLogRounds.innerHTML += "<h2>Player ganhou a rodada</h2>";
+    score[0].points++;
   }
 }
 
@@ -62,22 +64,39 @@ document.querySelectorAll(".chose-weapon").forEach((el) => {
     verifyScore();
     scoreBoard.innerHTML = `
       <div>
-        <span>Player ${score.player}x${score.computer} Computador</span>
+        <span>Player ${score[0].points} x ${score[1].points} Computador</span>
       </div>
     `;
   });
 });
 
 function showWinnerMessage() {
-  document.getElementById('message-winner').innerHTML = `<h2>${winner} é o vencedor!!!</h2><button>Resetar Game</button>`
+  document.querySelectorAll(".chose-weapon").forEach((el) => {
+    el.setAttribute("disabled", true);
+  });
+  contentLogRounds.innerHTML += `<h2>${winner} é o vencedor!!!</h2>`;
+  const button = document.createElement("button");
+  button.textContent = 'Resetar game';
+  button.setAttribute('id', 'reset-game-btn')
+  document.querySelector('.log-messages').appendChild(button);
+  document.getElementById('reset-game-btn').addEventListener('click', resetGame)
 }
 
 const verifyScore = () => {
-  Object.entries(score).forEach(([key, value]) => {
-    if (value === 5) {
-      console.log(`${key} é o vencedor`);
-      winner = key;
-      showWinnerMessage()
+  score.map((player) => {
+    if (player.points === 5) {
+      console.log(`${player.name} é o vencedor`);
+      winner = player.name;
+      showWinnerMessage();
     }
   });
 };
+
+
+
+function resetGame() {
+  // score.map((item) => {
+  //   [...item, (item.points = 0)];
+  // });
+  console.log('reset game function called')
+}
